@@ -31,5 +31,5 @@
   "keywords": ["angular", "boilerplate", "amd"],
   "authors": [
     { "name": "Joel Poulin", "email": "joel@voilab.org", "homepage": "http://www.voilab.org" }
-  ],
+  ]
 }
