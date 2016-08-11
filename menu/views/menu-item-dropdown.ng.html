@@ -1,0 +1,10 @@
+<li class="md-raised md-primary side-menu-link" ng-class="{active: voilabMenuItem.item.active, hidden: !accessGranted()}">
+    <div class="content" ng-click="voilabMenuItem.openLink(voilabMenuItem.item)">
+        <i ng-if="::(voilabMenuItem.item.icon !== undefined)" class="fa {{::voilabMenuItem.item.icon}}"></i>
+        <span translate>{{::voilabMenuItem.item.name}}</span>
+        <i class="pull-right fa" ng-class="{'fa-chevron-right': !voilabMenuItem.item.open, 'fa-chevron-down': voilabMenuItem.item.open}"></i>
+    </div>
+    <ul class="drop-down-list" ng-show="voilabMenuItem.item.open">
+        <voilab-menu-item ng-repeat="child in voilabMenuItem.item.children" item="::child" rel="{{child.type}}"></voilab-menu-item>
+    </ul>
+</li>

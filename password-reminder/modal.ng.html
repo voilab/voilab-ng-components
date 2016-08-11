@@ -1,0 +1,35 @@
+<div class="password-reminder-modal">
+    <div class="modal-body">
+        <h4>Récupérer mon mot de passe</h4>
+        <p>Veuillez saisir votre adresse email et valider le formulaire. Un email vous
+            sera envoyé d'ici quelques minutes avec la procédure à suivre pour
+            réinitialiser votre mot de passe.</p>
+
+        <form name="passreminder" class="form-horizontal" ng-submit="modal.submit()">
+            <div class="form-group">
+                <label class="sr-only" for="email_reminder">E-mail</label>
+                <div class="col-sm-10">
+                    <input id="email_reminder"
+                        type="email"
+                        class="form-control"
+                        placeholder="Votre email de connexion"
+                        ng-model="modal.email"
+                        focus="modal.focusEmail"
+                        required />
+                </div>
+                <div class="col-sm-2">
+                    <button type="submit" ng-disabled="passreminder.$invalid || modal.loading" class="btn btn-pink">Valider</button>
+                </div>
+            </div>
+        </form>
+        <div class="alert alert-danger" ng-show="modal.error">
+            <p ng-switch on="modal.errorStatus">
+                <span ng-switch-when="404">
+                    Cet email n'existe pas dans notre base de données.
+                    <a ng-href="{{ modal.getSubscriptionPageUrl() }}" ng-show="modal.getSubscriptionPageUrl()">Créez un compte!</a>
+                </span>
+                <span ng-switch-default>Une erreur s'est produite. Veuillez réessayer plus tard, merci.</span>
+            </p>
+        </div>
+    </div>
+</div>

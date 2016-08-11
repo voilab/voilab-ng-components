@@ -1,0 +1,5 @@
+<nav class="menu">
+    <ul>
+        <voilab-menu-item ng-repeat="item in menuController.menu | orderBy:'priority'" item="::item" rel="{{item.type}}"></voilab-menu-item>
+    </ul>
+</nav>

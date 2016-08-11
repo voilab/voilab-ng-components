@@ -1,0 +1,24 @@
+<form name="passreminder" class="form-horizontal" ng-submit="$ctrl.submit()">
+    <h2>Récupération de mon mot de passe</h2>
+    <div ng-show="$ctrl.user && !$ctrl.success">
+        <p>Vous avez demandé à récupérer votre mot de passe. Veuillez en saisir un nouveau dans les champs ci-dessous
+        afin de finaliser votre demande.</p>
+        <div class="form-group">
+            <label class="sr-only" for="pass1">Nouveau mot de passe</label>
+            <input type="password" class="form-control" id="pass1" focus="$ctrl.focusPass" placeholder="Mot de passe" ng-model="$ctrl.data.password" required />
+        </div>
+        <div class="form-group">
+            <label class="sr-only" for="pass2">Répéter le mot de passe</label>
+            <input type="password" class="form-control" id="pass2" placeholder="Contrôle du mot de passe" ng-model="$ctrl.data.passwordVerification" required />
+        </div>
+        <button type="submit" class="btn btn-pink" ng-disabled="passreminder.$invalid || $ctrl.loading || $ctrl.success">Connexion</button>
+    </div>
+    <div ng-show="$ctrl.success">
+        <h4>Bravo!</h4>
+        Votre mot de passe a été modifié! Vous allez être redirigé sur la page d'accueil.
+        <a ng-href="{{ $ctrl.getNextUrl() }}">Cliquez ici</a> pour y accéder immédiatement.
+    </div>
+    <div ng-show="$ctrl.error">Une erreur s'est produite, votre demande n'est pas valable.
+        <a href="#" ng-click="$ctrl.showLogin()">Veuillez en refaire une nouvelle.</a>.</div>
+    <div ng-hide="$ctrl.user || $ctrl.error">Récupération des données</div>
+</form>

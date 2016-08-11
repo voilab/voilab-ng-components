@@ -1,0 +1,11 @@
+.form-control {
+    &.ng-dirty.ng-valid {
+        background-color: #efe;
+        color: #090;
+    }
+
+    &.ng-invalid {
+        background-color: #fee;
+        color: #900;
+    }
+}
