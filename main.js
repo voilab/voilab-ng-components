@@ -10,7 +10,6 @@ requirejs.config({
         'require-topmodel': 'vendors/require-topmodel/lib',
         qtip2: 'vendors/qtip2/jquery.qtip.min',
         'angular-qtip2': 'vendors/angular-qtip2/lib/voilab-angular-qtip',
-        'units': 'components/util/units',
 
         'angular-animate': 'vendors/angular-animate/angular-animate',
         'angular-bootstrap': 'vendors/angular-bootstrap/ui-bootstrap-tpls',
