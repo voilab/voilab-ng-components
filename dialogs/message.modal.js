@@ -2,12 +2,11 @@
 /*global define */
 
 define([
-    'components/module',
-    'config',
+    '../module',
     'lodash'
-], function (app, config, lodash) {
+], function (app, lodash) {
     'use strict';
-    app.service('MessageModal', ['$uibModal', '$filter', function ($uibModal, $filter) {
+    app.service('MessageModal', ['$uibModal', '$filter', 'config', function ($uibModal, $filter, config) {
 
         var self = this;
 
@@ -29,12 +28,12 @@ define([
          */
         this.show = function (modalConfig) {
             var instance = $uibModal.open({
-                templateUrl: 'components/dialogs/views/show.ng.html',
+                templateUrl: config.basepath + '/dialogs/views/show.ng.html',
                 controller: ['$sce', '$uibModalInstance', function ($sce, $uibModalInstance) {
                     var vm = this;
 
 
-                    vm.templateUrl = modalConfig.templateUrl || 'components/dialogs/views/content.default.ng.html';
+                    vm.templateUrl = modalConfig.templateUrl || config.basepath + '/dialogs/views/content.default.ng.html';
 
                     if (lodash.isString(modalConfig.content)) {
                         vm.content = $sce.trustAsHtml(modalConfig.content || "No content");
@@ -121,7 +120,7 @@ define([
                 titleClass: 'text-danger',
                 contentClass: 'text-danger'
             };
-            if (['dev', 'development'].indexOf(config.VOILAB.env.mode) > -1 && rejection.data && rejection.data.stack) {
+            if (['dev', 'development'].indexOf(config.env) > -1 && rejection.data && rejection.data.stack) {
                 modalconfig.title = rejection.status + ' - ' + rejection.statusText;
                 modalconfig.content = $filter('replace')(rejection.data.stack, "\n", "<br>");
             } else {

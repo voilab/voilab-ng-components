@@ -2,12 +2,12 @@
 /*global define */
 
 define([
-    'components/module',
+    '../module',
     'lodash'
 ], function (app, lodash) {
     'use strict';
 
-    app.directive('voilabMenuItem', function () {
+    app.directive('voilabMenuItem', ['config', function (config) {
         return {
             restrict: 'E',
             require: '^voilabMenu',
@@ -17,7 +17,7 @@ define([
             },
             template: '<li ng-include="::voilabMenuItem.template" include-replace></li>',
             link: function (scope, element, attrs, parentController) {
-                scope.voilabMenuItem.template = 'components/menu/views/menu-item-' + scope.voilabMenuItem.item.type + '.ng.html';
+                scope.voilabMenuItem.template = config.basepath + '/menu/views/menu-item-' + scope.voilabMenuItem.item.type + '.ng.html';
 
                 scope.accessGranted = function () {
                     return scope.voilabMenuItem.item.access === undefined || lodash.intersection(parentController.access, scope.voilabMenuItem.item.access).length > 0
@@ -94,7 +94,7 @@ define([
             }],
             controllerAs: 'voilabMenuItem'
         };
-    })
+    }])
         .directive('includeReplace', function () {
             return {
                 require: 'ngInclude',

@@ -55,11 +55,11 @@ define([
     'qtip2',
     './bundle',
     'domReady!'
-], function (module, jQuery) {
+], function (app, jQuery) {
     'use strict';
 
     jQuery.fn.qtip.defaults.style.classes = 'qtip qtip-dark qtip-shadow qtip-rounded';
 
-    return module;
+    return app;
 
 });

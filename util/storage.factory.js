@@ -1,7 +1,7 @@
 /*jslint browser: true */
 /*global define */
 define([
-    'components/module',
+    '../module',
     'lodash'
 ], function (app, lodash) {
     'use strict';

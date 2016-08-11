@@ -1,17 +1,16 @@
 /*jslint browser: true */
 /*global define */
 define([
-    'components/module',
-    'lodash',
-    'config'
-], function (app, lodash, config) {
+    '../module',
+    'lodash'
+], function (app, lodash) {
     'use strict';
 
-    app.service('MeService', ['Api', 'store', '$q', '$injector', '$timeout', function (Api, store, $q, $injector, $timeout) {
+    app.service('MeService', ['Api', 'store', '$q', '$injector', '$timeout', 'config', function (Api, store, $q, $injector, $timeout, config) {
         // initialisation des permissions spéciales
         var special_permissions;
         $timeout(function () {
-            special_permissions = $injector.get(config.VOILAB.permissionService).getSpecialPermissions();
+            special_permissions = $injector.get(config.permissionService).getSpecialPermissions();
         });
 
 
@@ -22,7 +21,7 @@ define([
          * @returns {Promise}
          */
         this.login = function (user) {
-            return Api.post('/session', user, {model: config.VOILAB.usermodel, silently: true});
+            return Api.post('/session', user, {model: config.usermodel, silently: true});
         };
 
         /**
@@ -41,7 +40,7 @@ define([
          * @returns {Promise}
          */
         this.ping = function (silently) {
-            return Api.get('/session', {model: config.VOILAB.usermodel, silently: silently || false});
+            return Api.get('/session', {model: config.usermodel, silently: silently || false});
         };
 
         /**
@@ -50,7 +49,7 @@ define([
          * @returns {Object}
          */
         this.getConnectedUser = function () {
-            return store.getSession(config.VOILAB.storageUserName);
+            return store.getSession(config.storageUserName);
         };
 
         /**

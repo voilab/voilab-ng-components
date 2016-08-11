@@ -2,9 +2,9 @@
 /*global define */
 
 define([
-    'components/module',
+    '../module',
     'lodash',
-    'json!components/countries/i18n/fr.json'
+    'json!./i18n/fr.json'
 ], function (app, lodash, countries) {
     'use strict';
 

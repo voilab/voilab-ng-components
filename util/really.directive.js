@@ -2,7 +2,7 @@
 /*global define */
 
 define([
-    'components/module'
+    '../module'
 ], function (app) {
     'use strict';
 

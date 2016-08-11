@@ -2,14 +2,15 @@
 /*global define */
 
 define([
-    'components/module'
+    '../module'
 ], function (app) {
     'use strict';
 
-    app.directive('voilabMenu', function () {
+    app.directive('voilabMenu', ['config', function (config) {
+
         return {
             restrict: 'E',
-            templateUrl: 'components/menu/views/menu.ng.html',
+            templateUrl: config.basepath + '/menu/views/menu.ng.html',
             scope: {},
             bindToController: {
                 access: '='
@@ -21,5 +22,5 @@ define([
             }],
             controllerAs: 'menuController'
         };
-    });
+    }]);
 });

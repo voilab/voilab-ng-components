@@ -2,15 +2,15 @@
 /*global define */
 
 define([
-    'components/module',
+    '../module',
     'lodash'
 ], function (app, lodash) {
     'use strict';
 
-    app.directive('voilabTree', ['$timeout', function ($timeout) {
+    app.directive('voilabTree', ['$timeout', 'config', function ($timeout, config) {
         return {
             restrict: 'E',
-            templateUrl: "components/tree/views/tree.ng.html",
+            templateUrl: config.basepath + "/tree/views/tree.ng.html",
             replace: true,
             scope: {
                 treeData: '=',

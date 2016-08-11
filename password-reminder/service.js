@@ -2,17 +2,16 @@
 /*global define */
 
 define([
-    'components/module',
-    'config'
-], function (app, config) {
+    '../module'
+], function (app) {
     'use strict';
 
     app
-        .service('PasswordReminderService', ['$uibModal', 'Api', function ($uibModal, Api) {
+        .service('PasswordReminderService', ['$uibModal', 'Api', 'config', function ($uibModal, Api, config) {
             this.openModal = function (email) {
                 return $uibModal
                     .open({
-                        templateUrl: 'components/password-reminder/modal.ng.html',
+                        templateUrl: config.basepath + '/password-reminder/modal.ng.html',
                         windowClass: 'password-reminder',
                         controller: 'PasswordReminderModalCtrl',
                         controllerAs: 'modal',
@@ -25,24 +24,24 @@ define([
             };
 
             this.sendPasswordReminder = function (email) {
-                return Api.post(config.VOILAB.passwordReminder.endpoint, {
+                return Api.post(config.passwordReminder.endpoint, {
                     email: email
                 });
             };
 
             this.getByPasswordReminderHash = function (hash) {
-                return Api.get(config.VOILAB.passwordReminder.endpoint + '/' + hash, {model: config.VOILAB.usermodel});
+                return Api.get(config.passwordReminder.endpoint + '/' + hash, {model: config.usermodel});
             };
 
             this.remindPassword = function (hash, data) {
-                return Api.put(config.VOILAB.passwordReminder.endpoint + '/' + hash, data);
+                return Api.put(config.passwordReminder.endpoint + '/' + hash, data);
             };
         }])
-        .controller('PasswordReminderModalCtrl', ['$uibModalInstance', 'PasswordReminderService', 'email', function ($uibModalInstance, PasswordReminderService, email) {
+        .controller('PasswordReminderModalCtrl', ['$uibModalInstance', 'PasswordReminderService', 'email', 'config', function ($uibModalInstance, PasswordReminderService, email, config) {
             var self = this;
 
             self.getSubscriptionPageUrl = function () {
-                return config.VOILAB.passwordReminder.subscriptionPageUrl;
+                return config.passwordReminder.subscriptionPageUrl;
             };
 
             self.submit = function () {

@@ -2,20 +2,19 @@
 /*global define */
 
 define([
-    'components/module',
-    'config'
-], function (app, config) {
+    '../module'
+], function (app) {
     'use strict';
 
     app
         .component('passwordReminder', {
-            templateUrl: 'components/password-reminder/component.ng.html',
+            templateUrl: ['config', function (config) { return config.basepath + '/password-reminder/component.ng.html' }],
             controller: 'PasswordReminderCtrl',
             bindings: {
                 hash: '@'
             }
         })
-        .controller('PasswordReminderCtrl', ['PasswordReminderService', '$timeout', 'LoginModal', function (PasswordReminderService, $timeout, LoginModal) {
+        .controller('PasswordReminderCtrl', ['PasswordReminderService', '$timeout', 'LoginModal', 'config', function (PasswordReminderService, $timeout, LoginModal, config) {
             var self = this;
 
             this.submit = function () {
@@ -39,7 +38,7 @@ define([
             };
 
             this.getNextUrl = function () {
-                return config.VOILAB.passwordReminder.finishUrl;
+                return config.passwordReminder.finishUrl;
             };
 
             this.showLogin = function () {
