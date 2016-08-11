@@ -4,11 +4,11 @@
 define([
     'angular',
     'lodash',
-    'module'
-], function (angular, lodash, module) {
+    'config'
+], function (angular, lodash, appConfig) {
     'use strict';
 
-    var config = module.config();
+    var config = appConfig.VOILAB_NG_COMPONENTS.amdTranslator;
 
     return angular.module('voilab.amdTranslator', [
         'ngCookies', 'angularMoment', 'pascalprecht.translate', 'RestTopModel'
@@ -44,6 +44,17 @@ define([
 
             // store the users language preference in a cookie
             $translateProvider.useLocalStorage();
+        }])
+
+        .service('VoilabAmdTranslator', ['$translate', function ($translate) {
+
+            this.getLanguages = function () {
+                return lodash.map(config.available, 'key');
+            };
+
+            this.setActiveLanguage = function (lang) {
+                return $translate.use(lang)
+            };
         }])
 
         .run(['amMoment', '$translate', function (amMoment, $translate) {
