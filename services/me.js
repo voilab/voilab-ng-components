@@ -9,9 +9,11 @@ define([
     app.service('MeService', ['Api', 'store', '$q', '$injector', '$timeout', 'config', function (Api, store, $q, $injector, $timeout, config) {
         // initialisation des permissions spéciales
         var special_permissions;
-        $timeout(function () {
-            special_permissions = $injector.get(config.permissionService).getSpecialPermissions();
-        });
+        if (config.permissionService) {
+            $timeout(function () {
+                special_permissions = $injector.get(config.permissionService).getSpecialPermissions();
+            });
+        }
 
 
         /**
