@@ -8,7 +8,7 @@ define([
 
     app
         .service('PasswordReminderService', ['$uibModal', 'Api', 'config', function ($uibModal, Api, config) {
-            this.openModal = function (email) {
+            this.openModal = function (email, from) {
                 return $uibModal
                     .open({
                         templateUrl: config.basepath + '/password-reminder/modal.ng.html',
@@ -18,14 +18,18 @@ define([
                         resolve: {
                             email: function () {
                                 return email;
+                            },
+                            from : function () {
+                                return from;
                             }
                         }
                     });
             };
 
-            this.sendPasswordReminder = function (email) {
+            this.sendPasswordReminder = function (email, from) {
                 return Api.post(config.passwordReminder.endpoint, {
-                    email: email
+                    email: email,
+                    from: from
                 });
             };
 
@@ -37,7 +41,7 @@ define([
                 return Api.put(config.passwordReminder.endpoint + '/' + hash, data);
             };
         }])
-        .controller('PasswordReminderModalCtrl', ['$uibModalInstance', 'PasswordReminderService', 'email', 'config', function ($uibModalInstance, PasswordReminderService, email, config) {
+        .controller('PasswordReminderModalCtrl', ['$uibModalInstance', 'PasswordReminderService', 'email', 'from', 'config', function ($uibModalInstance, PasswordReminderService, email, from, config) {
             var self = this;
 
             self.getSubscriptionPageUrl = function () {
@@ -46,7 +50,7 @@ define([
 
             self.submit = function () {
                 self.loading = true;
-                PasswordReminderService.sendPasswordReminder(self.email)
+                PasswordReminderService.sendPasswordReminder(self.email, from)
                     .then(function () {
                         $uibModalInstance.close(self.email);
                     })
@@ -66,3 +70,4 @@ define([
             };
         }]);
 });
+

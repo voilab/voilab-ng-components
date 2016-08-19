@@ -11,7 +11,8 @@ define([
             templateUrl: ['config', function (config) { return config.basepath + '/password-reminder/component.ng.html' }],
             controller: 'PasswordReminderCtrl',
             bindings: {
-                hash: '@'
+                hash: '@',
+                nextUrl: '@?'
             }
         })
         .controller('PasswordReminderCtrl', ['PasswordReminderService', '$timeout', 'LoginModal', 'config', function (PasswordReminderService, $timeout, LoginModal, config) {
@@ -38,7 +39,7 @@ define([
             };
 
             this.getNextUrl = function () {
-                return config.passwordReminder.finishUrl;
+                return self.nextUrl || config.passwordReminder.finishUrl;
             };
 
             this.showLogin = function () {
@@ -58,3 +59,4 @@ define([
             };
         }]);
 });
+
