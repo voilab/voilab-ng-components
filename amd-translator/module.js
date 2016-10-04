@@ -38,7 +38,20 @@ define([
                     return acc;
                 }, {}));
 
-            $translateProvider.determinePreferredLanguage();
+            $translateProvider.determinePreferredLanguage(function () {
+                // set from browser
+                $translateProvider.determinePreferredLanguage();
+                // if language found is not available, set to fallback
+                var preferred = $translateProvider.preferredLanguage(),
+                    found = lodash.find(config.available, function (ln) {
+                        return ln.key.toLowerCase() === (preferred && preferred.toLowerCase());
+                    });
+
+                if (!found) {
+                    preferred = config.fallback;
+                }
+                return preferred;
+            });
 
             $translateProvider.fallbackLanguage(config.fallback);
 
@@ -53,7 +66,7 @@ define([
             };
 
             this.setActiveLanguage = function (lang) {
-                return $translate.use(lang)
+                return $translate.use(lang);
             };
         }])
 
