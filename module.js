@@ -8,7 +8,7 @@ define([
     'use strict';
 
     return angular.module('voilab.components', [
-        'voilab.amdTranslator', 'ngAnimate', 'ui.bootstrap', 'ch.filters', 'qtip2', 'hc.marked'
+        'voilab.amdTranslator', 'ngAnimate', 'ui.bootstrap', 'ui.router', 'ch.filters', 'qtip2', 'hc.marked'
     ])
         .value('config', config.VOILAB_NG_COMPONENTS.main)
         /**
