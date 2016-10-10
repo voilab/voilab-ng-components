@@ -68,6 +68,13 @@ define([
                         }
                     };
 
+                    vm.buttonIsDisabled = function (button) {
+                        if (button.disabled) {
+                            return button.disabled($uibModalInstance, instance.result, vm) || vm.loading;
+                        }
+                        return vm.loading;
+                    };
+
                     // tout les champs non réservés par la config sont passés immédiatement
                     // au scope de la modale
                     vm = lodash.merge(vm, lodash.omit(modalConfig, [
