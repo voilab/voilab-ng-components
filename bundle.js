@@ -14,7 +14,6 @@ define([
     'angular-translate-storage-local',
     'angular-marked',
     'moment',
-    'moment-fr',
     'require-topmodel/angular',
     'angular-qtip2',
     'angular-ui-router',
