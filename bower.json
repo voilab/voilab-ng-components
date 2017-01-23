@@ -1,6 +1,6 @@
 {
   "name": "voilab-ng-components",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "dependencies": {
     "angular": "1.6.*",
     "angular-animate": "1.*",
