@@ -30,25 +30,51 @@
                     throw new TypeError('Unable to load data, a urlTemplate is not a non-empty string or not a function.');
                 }
 
-                var deferred = $q.defer(),
-                    toload = lodash.map(parts, function (file) {
-                        return 'json!' + lodash.replace(options.urlTemplate, /{(.*?)}/g, function (pattern, result) {
-                            if (result === 'lang') {
-                                return options.key;
-                            }
-                            if (result === 'part') {
-                                return file;
-                            }
-                            return pattern;
-                        });
+                var toload = lodash.map(parts, function (file) {
+                        var process = function (lang) {
+                            return 'json!' + lodash.replace(options.urlTemplate, /{(.*?)}/g, function (pattern, result) {
+                                    if (result === 'lang') {
+                                        return lang;
+                                    }
+                                    if (result === 'part') {
+                                        return file;
+                                    }
+                                    return pattern;
+                                });
+                        };
+                        if (options.fallback !== options.key) {
+                            return [
+                                process(options.key),
+                                process(options.fallback)
+                            ];
+                        } else {
+                            return [
+                                process(options.key)
+                            ];
+                        }
+
                     });
 
-                require(toload, function () {
-                    var args = Array.prototype.slice.call(arguments);
-                    return deferred.resolve(lodash.merge(args));
+                var loading_promises = lodash.map(toload, function (filename) {
+                    var deferred = $q.defer();
+                    require([filename[0]], function (mod) {
+                        deferred.resolve(mod);
+                    }, function (err) {
+                        if (filename[1] !== undefined) {
+                            require([filename[1]], function (mod) {
+                                deferred.resolve(mod);
+                            }, function (err) {
+                                deferred.resolve({});
+                            });
+                        }
+                    });
+                    return deferred.promise;
                 });
 
-                return deferred.promise;
+                return $q.all(loading_promises)
+                    .then(function (results) {
+                        return lodash.merge(results);
+                    });
             };
             return service;
         }];

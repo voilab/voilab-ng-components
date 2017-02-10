@@ -23,7 +23,8 @@ define([
         .config(['$translateProvider', function ($translateProvider) {
 
             $translateProvider.useLoader('amdTranslator', {
-                urlTemplate: config.filePattern
+                urlTemplate: config.filePattern,
+                fallback: config.fallback
             });
 
             // make sure all values used in translate are sanitized for security
