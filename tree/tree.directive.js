@@ -19,7 +19,8 @@ define([
                 onPopover: '&',
                 initialSelection: '@',
                 treeControl: '=',
-                bindId: '@'
+                bindId: '@',
+                arrowRight: '@'
             },
             link: function (scope, element, attrs) {
                 var expand_all_parents,

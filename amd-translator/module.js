@@ -74,9 +74,10 @@ define([
             var lang = $translate.use();
             amMoment.changeLocale(lang);
         }])
-        .run(['$rootScope', '$translate', 'Api', function ($rootScope, $translate, Api) {
+        .run(['$rootScope', '$translate', 'Api', 'amMoment', function ($rootScope, $translate, Api, amMoment) {
             $rootScope.$on('$translateChangeSuccess', function () {
                 Api.setApiUrl(config.translatableEndpoint.replace('[lang]', $translate.use()));
+                amMoment.changeLocale($translate.use());
             });
         }]);
 });
