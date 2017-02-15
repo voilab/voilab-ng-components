@@ -71,9 +71,12 @@ define([
             };
         }])
 
-        .run(['amMoment', '$translate', function (amMoment, $translate) {
+        .run(['amMoment', '$translate', '$rootScope', function (amMoment, $translate, $rootScope) {
             var lang = $translate.use();
             amMoment.changeLocale(lang);
+            $rootScope.$on('$translateChangeSuccess', function (event, data) {
+                amMoment.changeLocale(data.language);
+            });
         }])
         .run(['$rootScope', '$translate', 'Api', function ($rootScope, $translate, Api) {
             $rootScope.$on('$translateChangeSuccess', function () {
