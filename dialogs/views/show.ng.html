@@ -4,7 +4,7 @@
         <h4 class="modal-title{{ctrl.titleClass}}"><i class="fa fa-{{ctrl.icon}} fa-lg"></i> {{ctrl.title}}</h4>
     </div>
     <div class="modal-body{{ctrl.contentClass}}" ng-include="ctrl.templateUrl"></div>
-    <div class="modal-footer">
+    <div class="modal-footer" ng-show="ctrl.buttons.length > 0">
         <button type="button" class="btn btn-default" ng-click="ctrl.buttonCallback(button.callback)" ng-repeat="button in ctrl.buttons" ng-disabled="ctrl.buttonIsDisabled(button)">
             <i ng-show="button.icon" class="fa fa-{{button.icon}}"></i> {{button.label}}
         </button>
