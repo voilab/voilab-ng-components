@@ -24,9 +24,10 @@ define([
          *      label: 'Yes', // text inside your button
          *      callback: 'close' || 'dismiss' || function (modalInstance, modalPromise, modalControllerScope) { your own code }
          *  }]
+         * @param {Boolean} returnInstance Si vrai, retourne l'instance au lieu de la promesse
          * @returns {*}
          */
-        this.show = function (modalConfig) {
+        this.show = function (modalConfig, returnInstance) {
             var instance = $uibModal.open({
                 templateUrl: config.basepath + '/dialogs/views/show.ng.html',
                 controller: ['$sce', '$uibModalInstance', function ($sce, $uibModalInstance) {
@@ -89,9 +90,18 @@ define([
                         'close',
                         'buttonCallback'
                     ]));
+
+                    // initialisation de la modale
+                    if (vm.init && lodash.isFunction(vm.init)) {
+                        vm.init();
+                    }
                 }],
                 controllerAs: 'ctrl'
             });
+
+            if (returnInstance) {
+                return instance;
+            }
 
             return instance.result;
         };
