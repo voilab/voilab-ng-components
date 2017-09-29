@@ -48,9 +48,10 @@ define([
                     vm.contentClass = modalConfig.contentClass ? ' ' + modalConfig.contentClass : '';
 
                     vm.buttons = modalConfig.buttons || [{
-                            label: 'Ok',
-                            callback: 'dismiss'
-                        }];
+                        label: 'Ok',
+                        callback: 'dismiss',
+                        className: ''
+                    }];
 
                     vm.close = function () {
                         $uibModalInstance.dismiss();
