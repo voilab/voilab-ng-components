@@ -127,18 +127,27 @@ define([
                 icon: 'minus-circle text-danger',
                 titleClass: 'text-danger',
                 contentClass: 'text-danger'
-            };
-            if (['dev', 'development'].indexOf(config.env) > -1 && rejection.data && rejection.data.stack) {
+            },
+                is_dev_mode = ['dev', 'development'].indexOf(config.env) > -1;
+
+            // titre
+            if (is_dev_mode && rejection.data && rejection.data.stack) {
                 modalconfig.title = rejection.status + ' - ' + rejection.statusText;
-                modalconfig.content = $filter('replace')(rejection.data.stack, "\n", "<br>");
             } else {
                 modalconfig.title = "Erreur";
-                if (rejection.data && rejection.data.message) {
-                    modalconfig.content = rejection.data.message;
-                } else {
-                    modalconfig.content = rejection;
-                }
             }
+
+            // contenu
+            if (rejection.data && rejection.data.message) {
+                modalconfig.content = rejection.data.message;
+            } else {
+                modalconfig.content = rejection;
+            }
+
+            if (is_dev_mode) {
+                modalconfig.content +=  "<br>" + $filter('replace')(rejection.data.stack, "\n", "<br>");
+            }
+
             return self.show(modalconfig);
         };
 
